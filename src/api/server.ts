@@ -3,7 +3,7 @@ const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvd25lciI6ImEzMjg1ZmM5Mzgz
 const heroku_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvd25lciI6ImVmNzJmYjcxYTY3Y2IwZDlkYTEzZjAwYTBkMDVhMjk0NmQ4ZTdkNDIyZTM0YmZkMyIsImFjY2Vzc190aW1lIjoiXCIyMDIxLTAyLTE5IDE4OjMyOjQ3Ljc5MDA0NlwiIn0.sVJguaRb7jckl4rfvYvl42R9w8lv5MdMhbeDyBaVaR0'
 export const server_calls = {
     get: async () => {
-        const response = await fetch(`/marvel_chars`,{
+        const response = await fetch(`https://marvel-characters-api-bg.herokuapp.com/marvel_chars`,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export const server_calls = {
         return await response.json()
     },
     delete: async (id:string) => {
-        const response = await fetch(`/marvel_chars/${id}`, {
+        const response = await fetch(`https://marvel-characters-api-bg.herokuapp.com/marvel_chars/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export const server_calls = {
         return await response.json()
     },
     update: async (id:string, data:any = {}) => {
-        const response = await fetch(`/marvel_chars/${id}`, {
+        const response = await fetch(`https://marvel-characters-api-bg.herokuapp.com/marvel_chars/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export const server_calls = {
         return await response.json()
     },
     create: async (data:any = {}) => {
-        const response = await fetch(`/marvel_chars`, {
+        const response = await fetch(`https://marvel-characters-api-bg.herokuapp.com/marvel_chars`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
