@@ -1,12 +1,97 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { render } from 'react-dom';
 import reportWebVitals from './reportWebVitals';
+import { Home, CreateCharacter, Characters, UpdateCharacter, Login } from './components';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, Navbar, Nav } from 'react-bootstrap';
+import logo from './assets/img/marvel.png';
+import './styles.css';
+import { FirebaseAppProvider, AuthCheck } from 'reactfire';
+import 'firebase/auth';
+import { firebaseConfig } from './firebaseConfig';
 
-ReactDOM.render(
+// Imports From React-Router-Dom
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+}
+from 'react-router-dom';
+
+render(
   <React.StrictMode>
-    <App />
+    <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+    <Router>
+      <Navbar bg='dark' variant='dark'>
+        <Navbar.Brand>
+          <img
+            alt="Marvel Character Members"
+            src={logo}
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+          />{' '}
+          <Link to="/">Marvel Characters Members Area</Link>
+        </Navbar.Brand>
+      {/* Nav Items to the right */}
+      <Nav className="move-nav" activeKey='/'>
+        
+        <Nav.Item>
+          <Nav.Link>
+            <Link to='/'> Home </Link>
+          </Nav.Link>
+        </Nav.Item>
+
+        {/* Auth Check for Authed User */}
+        <AuthCheck fallback={
+          <Nav.Item>
+            <Nav.Link>
+              <Link to="/login">Login Here</Link>
+            </Nav.Link>
+          </Nav.Item>
+        }>
+
+        <Nav.Item>
+          <Nav.Link>
+            <Link to='/marvel_chars'> Display Your Characters </Link>
+          </Nav.Link>
+        </Nav.Item>
+
+        <Nav.Item>
+          <Nav.Link>
+            <Link to="/login">Logout</Link>
+          </Nav.Link>
+        </Nav.Item>
+
+        </AuthCheck>
+        {/* End of Auth Check */}
+        
+      </Nav>
+
+      </Navbar>
+
+
+      <Switch>
+        <Route exact path="/">
+          <Home title="Marvel Characters"/>
+        </Route>
+        <Route path="/create">
+          <CreateCharacter />
+        </Route>
+        <Route path="/marvel_chars">
+          <Characters />
+        </Route>
+        <Route path="/update">
+          <UpdateCharacter />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+      </Switch>
+
+    </Router>
+    </FirebaseAppProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
